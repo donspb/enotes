@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -46,7 +47,7 @@ public class EnotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_enotes, container, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.id.notes_list, container, false);
         loadData(view);
         return view;
     }
@@ -79,24 +80,13 @@ public class EnotesFragment extends Fragment {
     }
 
     private void showContent(EnoteData edata) {
-        if (isLandscape)  makeFragment(edata);
-        else makeIntent(edata);
-    }
 
-    private void makeFragment(EnoteData edata) {
         OneNoteFragment onEnote = OneNoteFragment.newInstance(edata);
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.one_note_holder, onEnote);
+        fragmentTransaction.replace(R.id.fragment_container, onEnote);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
-    }
-
-    private void makeIntent(EnoteData edata) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), OneNoteActivity.class);
-        intent.putExtra(ARG_INDEX_NAME, edata);
-        startActivity(intent);
     }
 }

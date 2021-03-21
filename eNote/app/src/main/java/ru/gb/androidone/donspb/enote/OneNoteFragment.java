@@ -3,10 +3,13 @@ package ru.gb.androidone.donspb.enote;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -40,6 +43,16 @@ public class OneNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_one_note, container, false);
+
+        Button btnBack = view.findViewById(R.id.back_button);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new EnotesFragment()).commit();
+            }
+        });
 
         TextView tv = new TextView(getContext());
         tv.setText(endata.getNoteTitle());
