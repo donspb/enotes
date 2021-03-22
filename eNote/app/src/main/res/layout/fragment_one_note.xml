@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/note_container"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OneNoteFragment"
+    android:orientation="vertical">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_button"
+        android:layout_width="@dimen/button_back_width"
+        android:layout_height="@dimen/button_back_height"
+        android:text="@string/button_back_text"
+        android:layout_gravity="top|left"
+        android:layout_margin="@dimen/button_back_margin"/>
+
+</LinearLayout>
