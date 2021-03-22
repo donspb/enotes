@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -26,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        EnotesFragment notesListFragment = new EnotesFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(MAIN_FRAGMENT_NAME);
-        fragmentTransaction.replace(R.id.fragment_container, notesListFragment).commit();
+        addFragment(EnotesListFragment.newInstance());
+
+//        EnotesListFragment notesListFragment = new EnotesListFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.addToBackStack(MAIN_FRAGMENT_NAME);
+//        fragmentTransaction.replace(R.id.fragment_container, notesListFragment).commit();
     }
 
     private void init() {
@@ -56,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void addFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

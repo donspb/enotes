@@ -18,7 +18,6 @@ public class EnoteData implements Parcelable {
         this.mNoteTitle = noteTitle;
         this.mNoteDescription = noteDescription;
         this.mDateTime = noteDate;
-//        setDateTime();
     }
 
     protected EnoteData (Parcel in) {

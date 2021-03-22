@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 public class OneNoteFragment extends Fragment {
@@ -50,7 +49,7 @@ public class OneNoteFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new EnotesFragment()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, new EnotesListFragment()).commit();
             }
         });
 

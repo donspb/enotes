@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/notes_list"
-        android:name="ru.gb.androidone.donspb.enote.EnotesFragment"
+        android:name="ru.gb.androidone.donspb.enote.EnotesListFragment"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
