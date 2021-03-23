@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/grey">
+
+    <ImageView
+        android:layout_width="0px"
+        android:layout_height="500px"
+        android:layout_weight="1"
+        android:src="@drawable/racoon"
+        android:layout_gravity="center"
+        android:background="@color/white"/>
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="0px"
+        android:layout_height="500px"
+        android:orientation="vertical"
+        android:layout_weight="2"
+        android:id="@+id/toast_layout"
+        android:layout_gravity="center"
+        android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_string_one"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_string_two"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_string_three"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_margin="10dp"/>
+
+
+    </LinearLayout>
+</LinearLayout>

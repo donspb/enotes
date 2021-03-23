@@ -11,8 +11,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -85,11 +89,25 @@ public class MainActivity extends AppCompatActivity {
                 addFragment(new SettingsFragment());
                 return true;
             case R.id.toolbar_menu_about:
-                Toast.makeText(this,
-                        R.string.about_string_one + "\n" + R.string.about_string_two + "\n" +
-                        R.string.about_string_three, Toast.LENGTH_LONG).show();
+                LayoutInflater li = getLayoutInflater();
+                View v = li.inflate(R.layout.about_toast, (ViewGroup) findViewById(R.id.toast_layout));
+
+//                String toastString = R.string.about_string_one + "\n" + R.string.about_string_two +
+//                        "\n" + R.string.about_string_three;
+                Toast aboutToast = new Toast(getApplicationContext());
+                aboutToast.setGravity(Gravity.CENTER, 0,0);
+                aboutToast.setDuration(Toast.LENGTH_LONG);
+                aboutToast.setView(v);
+                aboutToast.show();
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else super.onBackPressed();
     }
 }

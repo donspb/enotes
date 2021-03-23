@@ -72,7 +72,9 @@ public class EnotesListFragment extends Fragment {
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, onEnote);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            fragmentTransaction.replace(R.id.landscape_side_container, onEnote);
+        else fragmentTransaction.replace(R.id.fragment_container, onEnote);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

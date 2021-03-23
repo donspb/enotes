@@ -43,16 +43,6 @@ public class OneNoteFragment extends Fragment {
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_one_note, container, false);
 
-        Button btnBack = view.findViewById(R.id.back_button);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new EnotesListFragment()).commit();
-            }
-        });
-
         TextView tv = new TextView(getContext());
         tv.setText(endata.getNoteTitle());
         tv.setTextSize(30);
@@ -70,4 +60,5 @@ public class OneNoteFragment extends Fragment {
 
         return view;
     }
+
 }
