@@ -12,7 +12,7 @@
         android:layout_width="@dimen/button_back_width"
         android:layout_height="@dimen/button_back_height"
         android:text="@string/button_back_text"
-        android:layout_gravity="top|left"
+        android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/button_back_margin"/>
 
 </LinearLayout>

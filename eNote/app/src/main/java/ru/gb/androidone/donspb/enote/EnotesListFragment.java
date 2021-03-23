@@ -55,10 +55,26 @@ public class EnotesListFragment extends Fragment {
         adapter.SetOnItemClickListener(new EnotesListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(),
-                        String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
+                String[] titles = getResources().getStringArray(R.array.notes_titles);
+                String[] descr = getResources().getStringArray(R.array.notes_descriptions);
+                String[] date = getResources().getStringArray(R.array.notes_dates);
+
+                EnoteData edata = new
+                        EnoteData(titles[position], descr[position], date[position]);
+                showContent(edata);
             }
         });
+    }
+
+    private void showContent(EnoteData edata) {
+
+        OneNoteFragment onEnote = OneNoteFragment.newInstance(edata);
+
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, onEnote);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 //    @Override
@@ -110,14 +126,5 @@ public class EnotesListFragment extends Fragment {
 //        super.onSaveInstanceState(outState);
 //    }
 //
-//    private void showContent(EnoteData edata) {
-//
-//        OneNoteFragment onEnote = OneNoteFragment.newInstance(edata);
-//
-//        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container, onEnote);
-//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//        fragmentTransaction.commit();
-//    }
+
 }

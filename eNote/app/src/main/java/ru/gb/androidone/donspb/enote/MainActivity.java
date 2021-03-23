@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,12 +29,6 @@ public class MainActivity extends AppCompatActivity {
         init();
 
         addFragment(EnotesListFragment.newInstance());
-
-//        EnotesListFragment notesListFragment = new EnotesListFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.addToBackStack(MAIN_FRAGMENT_NAME);
-//        fragmentTransaction.replace(R.id.fragment_container, notesListFragment).commit();
     }
 
     private void init() {
@@ -87,8 +82,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean navigateFragment(int id) {
         switch (id) {
             case R.id.toolbar_menu_settings:
+                addFragment(new SettingsFragment());
                 return true;
             case R.id.toolbar_menu_about:
+                Toast.makeText(this,
+                        R.string.about_string_one + "\n" + R.string.about_string_two + "\n" +
+                        R.string.about_string_three, Toast.LENGTH_LONG).show();
                 return true;
         }
         return false;

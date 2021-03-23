@@ -11,4 +11,11 @@
     <string name="main_menu_drawer_open">Main menu open</string>
     <string name="main_menu_drawer_close">Main menu close</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Under construction</string>
+
+    <string name="about_string_one">eNotes</string>
+    <string name="about_string_two">by donspb</string>
+    <string name="about_string_three">2021</string>
+
 </resources>
