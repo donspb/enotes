@@ -43,20 +43,30 @@ public class OneNoteFragment extends Fragment {
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_one_note, container, false);
 
-        TextView tv = new TextView(getContext());
+        TextView tv = view.findViewById(R.id.one_note_title);
         tv.setText(endata.getNoteTitle());
-        tv.setTextSize(30);
-        view.addView(tv);
 
-        tv = new TextView(getContext());
+        tv = view.findViewById(R.id.one_note_descr);
         tv.setText(endata.getNoteDescription());
-        tv.setTextSize(20);
-        view.addView(tv);
 
-        tv = new TextView(getContext());
+        tv = view.findViewById(R.id.one_note_date);
         tv.setText(endata.getDateTime());
-        tv.setTextSize(10);
-        view.addView(tv);
+
+
+//        TextView tv = new TextView(getContext());
+//        tv.setText(endata.getNoteTitle());
+//        tv.setTextSize(30);
+//        view.addView(tv);
+//
+//        tv = new TextView(getContext());
+//        tv.setText(endata.getNoteDescription());
+//        tv.setTextSize(20);
+//        view.addView(tv);
+//
+//        tv = new TextView(getContext());
+//        tv.setText(endata.getDateTime());
+//        tv.setTextSize(10);
+//        view.addView(tv);
 
         return view;
     }
