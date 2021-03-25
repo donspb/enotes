@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
     private void addFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+        else fragmentTransaction.replace(R.id.fragment_container, fragment);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -92,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater li = getLayoutInflater();
                 View v = li.inflate(R.layout.about_toast, (ViewGroup) findViewById(R.id.toast_layout));
 
-//                String toastString = R.string.about_string_one + "\n" + R.string.about_string_two +
-//                        "\n" + R.string.about_string_three;
                 Toast aboutToast = new Toast(getApplicationContext());
                 aboutToast.setGravity(Gravity.CENTER, 0,0);
                 aboutToast.setDuration(Toast.LENGTH_LONG);

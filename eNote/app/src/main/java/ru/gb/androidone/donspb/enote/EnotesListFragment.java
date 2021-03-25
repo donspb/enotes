@@ -11,26 +11,26 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class EnotesListFragment extends Fragment {
 
     private static final String ARG_INDEX_NAME = "enote";
+    private static final String TAG = "enote";
     public static final String CURRENT_NOTE = "CurrentNote";
     private EnoteData edata;
     private boolean isLandscape;
 
     public static EnotesListFragment newInstance() {
+
         return new EnotesListFragment();
     }
 
-//    public EnotesListFragment() {
-//    }
+    public EnotesListFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +39,6 @@ public class EnotesListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_lines);
         EnoteDataSource data = new EnoteDataSourceImpl(getResources()).init();
         initRecycleView(recyclerView, data);
-//        loadData(view);
         return view;
     }
 
@@ -59,7 +58,7 @@ public class EnotesListFragment extends Fragment {
                 String[] descr = getResources().getStringArray(R.array.notes_descriptions);
                 String[] date = getResources().getStringArray(R.array.notes_dates);
 
-                EnoteData edata = new
+                edata = new
                         EnoteData(titles[position], descr[position], date[position]);
                 showContent(edata);
             }
@@ -79,54 +78,27 @@ public class EnotesListFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-//
-//        if (savedInstanceState != null) {
-//            edata = savedInstanceState.getParcelable(CURRENT_NOTE);
-//            showContent(edata);
-//        }
-//    }
-//
-//
-//
-//    private void loadData(View view) {
-//        LinearLayout layoutView = (LinearLayout) view;
-//
-//        String[] titles = getResources().getStringArray(R.array.notes_titles);
-//        String[] descr = getResources().getStringArray(R.array.notes_descriptions);
-//        String[] date = getResources().getStringArray(R.array.notes_dates);
-//
-//        LayoutInflater ltInflater = getLayoutInflater();
-//
-//        for (int i = 0; i < titles.length; i++) {
-//            View item = ltInflater.inflate(R.layout.enotes_list_item, layoutView, false);
-//            TextView tv = item.findViewById(R.id.list_item_tv);
-//            tv.setText(titles[i]);
-//            layoutView.addView(item);
-//            int ti = i;
-//            tv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    edata = new EnoteData(titles[ti], descr[ti], date[ti]);
-//                    showContent(edata);
-//                }
-//            });
-//        }
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        outState.putParcelable(CURRENT_NOTE, edata);
-//        super.onSaveInstanceState(outState);
-//    }
-//
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(CURRENT_NOTE, edata);
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState: instance saved ");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            edata = savedInstanceState.getParcelable(CURRENT_NOTE);
+            if (edata != null) showContent(edata);
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
 
 }
