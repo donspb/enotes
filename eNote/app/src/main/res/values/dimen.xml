@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_add_margin_bot">5dp</dimen>
+    <dimen name="button_add_text_size">30sp</dimen>
+
+    <dimen name="toolbar_height">80dp</dimen>
+
+    <dimen name="main_menu_header_height">100dp</dimen>
+
+    <dimen name="button_back_height">40dp</dimen>
+    <dimen name="button_back_width">80dp</dimen>
+    <dimen name="button_back_margin">10dp</dimen>
+
+</resources>
