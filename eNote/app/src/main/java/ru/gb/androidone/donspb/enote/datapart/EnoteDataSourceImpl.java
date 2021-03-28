@@ -1,9 +1,12 @@
-package ru.gb.androidone.donspb.enote;
+package ru.gb.androidone.donspb.enote.datapart;
 
 import android.content.res.Resources;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import ru.gb.androidone.donspb.enote.R;
 
 public class EnoteDataSourceImpl implements EnoteDataSource {
 
@@ -18,10 +21,9 @@ public class EnoteDataSourceImpl implements EnoteDataSource {
     public EnoteDataSourceImpl init() {
         String[] titles = resources.getStringArray(R.array.notes_titles);
         String[] descr = resources.getStringArray(R.array.notes_descriptions);
-        String[] date = resources.getStringArray(R.array.notes_dates);
 
         for (int i = 0; i < titles.length; i++) {
-            dataSource.add(new EnoteData(titles[i], descr[i], date[i]));
+            dataSource.add(new EnoteData(titles[i], descr[i], Calendar.getInstance().getTime()));
         }
         return this;
     }
@@ -34,5 +36,25 @@ public class EnoteDataSourceImpl implements EnoteDataSource {
     @Override
     public int size() {
         return dataSource.size();
+    }
+
+    @Override
+    public void deleteEnote(int position) {
+        dataSource.remove(position);
+    }
+
+    @Override
+    public void editEnote(int position, EnoteData enoteData) {
+        dataSource.set(position, enoteData);
+    }
+
+    @Override
+    public void addEnote(EnoteData enoteData) {
+        dataSource.add(enoteData);
+    }
+
+    @Override
+    public void clearEnotes() {
+        dataSource.clear();
     }
 }

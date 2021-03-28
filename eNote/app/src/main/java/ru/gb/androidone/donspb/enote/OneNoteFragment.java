@@ -3,14 +3,15 @@ package ru.gb.androidone.donspb.enote;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+
+import ru.gb.androidone.donspb.enote.datapart.EnoteData;
 
 public class OneNoteFragment extends Fragment {
 
@@ -50,7 +51,7 @@ public class OneNoteFragment extends Fragment {
         tv.setText(endata.getNoteDescription());
 
         tv = view.findViewById(R.id.one_note_date);
-        tv.setText(endata.getDateTime());
+        tv.setText(new SimpleDateFormat("dd-MM-yyyy").format(endata.getDateTime()));
 
 
 //        TextView tv = new TextView(getContext());

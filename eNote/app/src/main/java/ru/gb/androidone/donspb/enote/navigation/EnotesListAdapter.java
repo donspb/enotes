@@ -1,4 +1,4 @@
-package ru.gb.androidone.donspb.enote;
+package ru.gb.androidone.donspb.enote.navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,15 +6,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
+
+import ru.gb.androidone.donspb.enote.R;
+import ru.gb.androidone.donspb.enote.datapart.EnoteData;
+import ru.gb.androidone.donspb.enote.datapart.EnoteDataSource;
 
 public class EnotesListAdapter extends RecyclerView.Adapter<EnotesListAdapter.ViewHolder> {
 
     private EnoteDataSource dataSource;
     private OnItemClickListener itemClickListener;
+    private final Fragment fragment;
+    private int menuPosition;
 
-    public EnotesListAdapter(EnoteDataSource dataSource) {
+
+    public EnotesListAdapter(EnoteDataSource dataSource, Fragment fragment) {
         this.dataSource = dataSource;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -33,6 +44,10 @@ public class EnotesListAdapter extends RecyclerView.Adapter<EnotesListAdapter.Vi
     @Override
     public int getItemCount() {
         return dataSource.size();
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
     }
 
     public void SetOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -61,6 +76,14 @@ public class EnotesListAdapter extends RecyclerView.Adapter<EnotesListAdapter.Vi
                 }
             };
 
+            View.OnLongClickListener onItemLongClickListener = new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {menuPosition = getLayoutPosition();
+                    itemView.showContextMenu(10,10);
+                    return true;
+                }
+            };
+
             title = itemView.findViewById(R.id.list_title_field);
             descr = itemView.findViewById(R.id.list_descr_field);
             date = itemView.findViewById(R.id.list_date_field);
@@ -68,12 +91,30 @@ public class EnotesListAdapter extends RecyclerView.Adapter<EnotesListAdapter.Vi
             title.setOnClickListener(onItemClickListener);
             descr.setOnClickListener(onItemClickListener);
             date.setOnClickListener(onItemClickListener);
+            title.setOnLongClickListener(onItemLongClickListener);
+            descr.setOnLongClickListener(onItemLongClickListener);
+            date.setOnLongClickListener(onItemLongClickListener);
+
+            registerContextMenu(itemView);
+        }
+
+        private void registerContextMenu(@NonNull View itemView) {
+            if (fragment != null) {
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        menuPosition = getLayoutPosition();
+                        return false;
+                    }
+                });
+            }
+            fragment.registerForContextMenu(itemView);
         }
 
         public void setData(EnoteData enoteData) {
             title.setText(enoteData.getNoteTitle());
             descr.setText(enoteData.getNoteDescription());
-            date.setText(enoteData.getDateTime());
+            date.setText(new SimpleDateFormat("dd-MM-yyyy").format(enoteData.getDateTime()));
         }
     }
 }

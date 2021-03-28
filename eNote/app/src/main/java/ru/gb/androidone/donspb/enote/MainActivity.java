@@ -14,7 +14,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +21,32 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import ru.gb.androidone.donspb.enote.navigation.EnotesListFragment;
+import ru.gb.androidone.donspb.enote.navigation.MainNavigation;
+import ru.gb.androidone.donspb.enote.observe.Publisher;
+
 public class MainActivity extends AppCompatActivity {
 
-    private static final String MAIN_FRAGMENT_NAME = "main";
+//    private static final String MAIN_FRAGMENT_NAME = "main";
+
+    private MainNavigation navigation;
+    private Publisher publisher = new Publisher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        navigation = new MainNavigation(getSupportFragmentManager());
         init();
-
-        addFragment(EnotesListFragment.newInstance());
+        getNavigation().addFragment(EnotesListFragment.newInstance(), false);
     }
 
     private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -61,22 +69,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-        else fragmentTransaction.replace(R.id.fragment_container, fragment);
-//        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -89,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean navigateFragment(int id) {
         switch (id) {
             case R.id.toolbar_menu_settings:
-                addFragment(new SettingsFragment());
+                getNavigation().addFragment(SettingsFragment.newInstance(), false);
                 return true;
             case R.id.toolbar_menu_about:
                 LayoutInflater li = getLayoutInflater();
@@ -106,9 +98,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStack();
-        else super.onBackPressed();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
+
+    public MainNavigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (getFragmentManager().getBackStackEntryCount() > 0)
+//            getSupportFragmentManager().popBackStack();
+//        else super.onBackPressed();
+//    }
 }

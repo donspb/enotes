@@ -6,7 +6,7 @@
     android:id="@+id/enotes_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EnotesListFragment">
+    tools:context=".navigation.EnotesListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_lines"

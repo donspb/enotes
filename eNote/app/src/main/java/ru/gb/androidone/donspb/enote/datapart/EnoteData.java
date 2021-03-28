@@ -1,20 +1,17 @@
-package ru.gb.androidone.donspb.enote;
+package ru.gb.androidone.donspb.enote.datapart;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class EnoteData implements Parcelable {
 
     private String mNoteTitle;
     private String mNoteDescription;
-    private String mDateTime;
+    private Date mDateTime;
 
-    public EnoteData(String noteTitle, String noteDescription, String noteDate) {
+    public EnoteData(String noteTitle, String noteDescription, Date noteDate) {
         this.mNoteTitle = noteTitle;
         this.mNoteDescription = noteDescription;
         this.mDateTime = noteDate;
@@ -23,7 +20,7 @@ public class EnoteData implements Parcelable {
     protected EnoteData (Parcel in) {
         mNoteTitle = in.readString();
         mNoteDescription = in.readString();
-        mDateTime = in.readString();
+        mDateTime = new Date(in.readLong());
     }
 
 
@@ -47,7 +44,7 @@ public class EnoteData implements Parcelable {
         return mNoteDescription;
     }
 
-    public String getDateTime() {
+    public Date getDateTime() {
         return mDateTime;
     }
 
@@ -67,6 +64,6 @@ public class EnoteData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mNoteTitle);
         dest.writeString(mNoteDescription);
-        dest.writeString(mDateTime);
+        dest.writeLong(mDateTime.getTime());
     }
 }
