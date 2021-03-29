@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class EnoteData implements Parcelable {
 
+    private String id;
     private String mNoteTitle;
     private String mNoteDescription;
     private Date mDateTime;
@@ -46,6 +47,14 @@ public class EnoteData implements Parcelable {
 
     public Date getDateTime() {
         return mDateTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 //    private void setDateTime() {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1068897907051",
+    "project_id": "enote-cc6c3",
+    "storage_bucket": "enote-cc6c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068897907051:android:1177add572341bb663dc2e",
+        "android_client_info": {
+          "package_name": "ru.gb.androidone.donspb.enote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068897907051-km8kvlbqas6sqh1kh7l575ntnlf59f78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3ap6qs7Cl4SGGMY_422ITgq7Vrko_cAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068897907051-km8kvlbqas6sqh1kh7l575ntnlf59f78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

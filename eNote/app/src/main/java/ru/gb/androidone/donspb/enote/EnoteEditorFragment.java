@@ -101,8 +101,14 @@ public class EnoteEditorFragment extends Fragment {
         String title = this.title.getText().toString();
         String description = this.description.getText().toString();
         Date date = getDateFromDatePicker();
-
-        return new EnoteData(title, description, date);
+        if (mEnoteData != null) {
+            EnoteData result = new EnoteData(title, description, date);
+            result.setId(mEnoteData.getId());
+            return result;
+        }
+        else {
+            return new EnoteData(title, description, date);
+        }
     }
 
     private Date getDateFromDatePicker() {

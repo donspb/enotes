@@ -18,12 +18,16 @@ public class EnoteDataSourceImpl implements EnoteDataSource {
         this.resources = resources;
     }
 
-    public EnoteDataSourceImpl init() {
+    public EnoteDataSourceImpl init(EnoteDataSourceResp enoteDataSourceResp) {
         String[] titles = resources.getStringArray(R.array.notes_titles);
         String[] descr = resources.getStringArray(R.array.notes_descriptions);
 
         for (int i = 0; i < titles.length; i++) {
             dataSource.add(new EnoteData(titles[i], descr[i], Calendar.getInstance().getTime()));
+        }
+
+        if (enoteDataSourceResp != null) {
+            enoteDataSourceResp.initialized(this);
         }
         return this;
     }

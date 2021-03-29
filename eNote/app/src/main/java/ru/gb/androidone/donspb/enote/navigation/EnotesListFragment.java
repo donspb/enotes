@@ -30,8 +30,10 @@ import ru.gb.androidone.donspb.enote.MainActivity;
 import ru.gb.androidone.donspb.enote.OneNoteFragment;
 import ru.gb.androidone.donspb.enote.R;
 import ru.gb.androidone.donspb.enote.datapart.EnoteData;
+import ru.gb.androidone.donspb.enote.datapart.EnoteDataFirebaseSource;
 import ru.gb.androidone.donspb.enote.datapart.EnoteDataSource;
 import ru.gb.androidone.donspb.enote.datapart.EnoteDataSourceImpl;
+import ru.gb.androidone.donspb.enote.datapart.EnoteDataSourceResp;
 import ru.gb.androidone.donspb.enote.observe.Observer;
 import ru.gb.androidone.donspb.enote.observe.Publisher;
 
@@ -47,7 +49,7 @@ public class EnotesListFragment extends Fragment {
     private RecyclerView recyclerView;
     private MainNavigation navigation;
     private Publisher publisher;
-    private boolean moveToLastPosition;
+    private boolean moveToFirstPosition;
 
 
     public static EnotesListFragment newInstance() {
@@ -63,6 +65,13 @@ public class EnotesListFragment extends Fragment {
         View view = inflater.inflate(R.layout.enotes_list_fragment, container, false);
         initView(view);
         setHasOptionsMenu(true);
+        data = new EnoteDataFirebaseSource().init(new EnoteDataSourceResp() {
+            @Override
+            public void initialized(EnoteDataSource enoteData) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+        adapter.setDataSource(data);
         return view;
     }
 
@@ -73,24 +82,25 @@ public class EnotesListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case  R.id.toolbar_add:
-                navigation.addFragment(EnoteEditorFragment.newInstance(),true);
-                publisher.subscribe(new Observer() {
-                    @Override
-                    public void updateEnoteData(EnoteData enoteData) {
-                        data.addEnote(enoteData);
-                        adapter.notifyItemInserted(data.size() - 1);
-                        moveToLastPosition = true;
-                    }
-                });
-                return true;
-            case R.id.toolbar_clear:
-                data.clearEnotes();
-                adapter.notifyDataSetChanged();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case  R.id.toolbar_add:
+//                navigation.addFragment(EnoteEditorFragment.newInstance(),true);
+//                publisher.subscribe(new Observer() {
+//                    @Override
+//                    public void updateEnoteData(EnoteData enoteData) {
+//                        data.addEnote(enoteData);
+//                        adapter.notifyItemInserted(data.size() - 1);
+//                        moveToLastPosition = true;
+//                    }
+//                });
+//                return true;
+//            case R.id.toolbar_clear:
+//                data.clearEnotes();
+//                adapter.notifyDataSetChanged();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+        return onItemSelected(item.getItemId()) || super.onOptionsItemSelected(item);
     }
 
     private void initView(View view) {
@@ -105,7 +115,7 @@ public class EnotesListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new EnotesListAdapter(data, this);
+        adapter = new EnotesListAdapter(this);
         recyclerView.setAdapter(adapter);
 
         DefaultItemAnimator animator = new DefaultItemAnimator();
@@ -113,9 +123,9 @@ public class EnotesListFragment extends Fragment {
         animator.setRemoveDuration(ANIM_TIME_SETTING);
         recyclerView.setItemAnimator(animator);
 
-        if (moveToLastPosition) {
-            recyclerView.smoothScrollToPosition(data.size() - 1);
-            moveToLastPosition = false;
+        if (moveToFirstPosition && data.size() > 0) {
+            recyclerView.scrollToPosition(0);
+            moveToFirstPosition = false;
         }
 
         adapter.SetOnItemClickListener(new EnotesListAdapter.OnItemClickListener() {
@@ -161,12 +171,6 @@ public class EnotesListFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        data = new EnoteDataSourceImpl(getResources()).init();
-    }
-
-    @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = requireActivity().getMenuInflater();
@@ -175,25 +179,26 @@ public class EnotesListFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        int position = adapter.getMenuPosition();
-        switch(item.getItemId()) {
-            case R.id.action_edit:
-                navigation.addFragment(EnoteEditorFragment.newInstance(data.getEnoteData(position)), true);
-                publisher.subscribe(new Observer() {
-                    @Override
-                    public void updateEnoteData(EnoteData enoteData) {
-                        data.editEnote(position, enoteData);
-                        adapter.notifyItemChanged(position);
-                    }
-                });
-                return true;
-            case R.id.action_delete:
-                data.deleteEnote(position);
-                adapter.notifyItemRemoved(position);
-                return true;
-        }
-
-        return super.onContextItemSelected(item);
+//        int position = adapter.getMenuPosition();
+//        switch(item.getItemId()) {
+//            case R.id.action_edit:
+//                navigation.addFragment(EnoteEditorFragment.newInstance(data.getEnoteData(position)), true);
+//                publisher.subscribe(new Observer() {
+//                    @Override
+//                    public void updateEnoteData(EnoteData enoteData) {
+//                        data.editEnote(position, enoteData);
+//                        adapter.notifyItemChanged(position);
+//                    }
+//                });
+//                return true;
+//            case R.id.action_delete:
+//                data.deleteEnote(position);
+//                adapter.notifyItemRemoved(position);
+//                return true;
+//        }
+//
+//        return super.onContextItemSelected(item);
+        return onItemSelected(item.getItemId()) || super.onContextItemSelected(item);
     }
 
     @Override
@@ -209,5 +214,42 @@ public class EnotesListFragment extends Fragment {
         navigation = null;
         publisher = null;
         super.onDetach();
+    }
+
+    private boolean onItemSelected(int menuItemId) {
+        switch (menuItemId) {
+            case  R.id.toolbar_add:
+                navigation.addFragment(EnoteEditorFragment.newInstance(),true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateEnoteData(EnoteData enoteData) {
+                        data.addEnote(enoteData);
+                        adapter.notifyItemInserted(data.size() - 1);
+                        moveToFirstPosition = true;
+                    }
+                });
+                return true;
+            case R.id.action_edit:
+                final int updatePosition = adapter.getMenuPosition();
+                navigation.addFragment(EnoteEditorFragment.newInstance(data.getEnoteData(updatePosition)), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateEnoteData(EnoteData enoteData) {
+                        data.editEnote(updatePosition, enoteData);
+                        adapter.notifyItemChanged(updatePosition);
+                    }
+                });
+                return true;
+            case R.id.action_delete:
+                int deletePosition = adapter.getMenuPosition();
+                data.deleteEnote(deletePosition);
+                adapter.notifyItemRemoved(deletePosition);
+                return true;
+            case R.id.toolbar_clear:
+                data.clearEnotes();
+                adapter.notifyDataSetChanged();
+                return true;
+        }
+        return false;
     }
 }

@@ -23,9 +23,13 @@ public class EnotesListAdapter extends RecyclerView.Adapter<EnotesListAdapter.Vi
     private int menuPosition;
 
 
-    public EnotesListAdapter(EnoteDataSource dataSource, Fragment fragment) {
-        this.dataSource = dataSource;
+    public EnotesListAdapter(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    public void setDataSource(EnoteDataSource enoteDataSource) {
+        this.dataSource = enoteDataSource;
+        notifyDataSetChanged();
     }
 
     @NonNull
