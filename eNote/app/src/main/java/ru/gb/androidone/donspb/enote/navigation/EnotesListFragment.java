@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import ru.gb.androidone.donspb.enote.EnoteEditorFragment;
@@ -32,7 +31,6 @@ import ru.gb.androidone.donspb.enote.R;
 import ru.gb.androidone.donspb.enote.datapart.EnoteData;
 import ru.gb.androidone.donspb.enote.datapart.EnoteDataFirebaseSource;
 import ru.gb.androidone.donspb.enote.datapart.EnoteDataSource;
-import ru.gb.androidone.donspb.enote.datapart.EnoteDataSourceImpl;
 import ru.gb.androidone.donspb.enote.datapart.EnoteDataSourceResp;
 import ru.gb.androidone.donspb.enote.observe.Observer;
 import ru.gb.androidone.donspb.enote.observe.Publisher;

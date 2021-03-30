@@ -1,7 +1,8 @@
 package ru.gb.androidone.donspb.enote.datapart;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+import com.google.firebase.Timestamp;
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +15,9 @@ public class EnoteDataMapping {
     }
 
     public static EnoteData toEnoteData(String id, Map<String,Object> doc) {
-        Timestamp timestamp = (Timestamp) doc.get(Fields.DATE);
-        EnoteData result = new EnoteData((String) doc.get(Fields.TITLE), (String) doc.get(Fields.DESCRIPTION), String.valueOf(timestamp));
+        Timestamp ts = (Timestamp) doc.get(Fields.DATE);
+        EnoteData result = new EnoteData((String) doc.get(Fields.TITLE),
+                (String) doc.get(Fields.DESCRIPTION), ts.toDate());
         result.setId(id);
         return result;
     }
