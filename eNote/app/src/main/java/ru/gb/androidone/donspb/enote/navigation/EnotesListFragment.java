@@ -80,30 +80,11 @@ public class EnotesListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case  R.id.toolbar_add:
-//                navigation.addFragment(EnoteEditorFragment.newInstance(),true);
-//                publisher.subscribe(new Observer() {
-//                    @Override
-//                    public void updateEnoteData(EnoteData enoteData) {
-//                        data.addEnote(enoteData);
-//                        adapter.notifyItemInserted(data.size() - 1);
-//                        moveToLastPosition = true;
-//                    }
-//                });
-//                return true;
-//            case R.id.toolbar_clear:
-//                data.clearEnotes();
-//                adapter.notifyDataSetChanged();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
         return onItemSelected(item.getItemId()) || super.onOptionsItemSelected(item);
     }
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recycler_lines);
-//        data = new EnoteDataSourceImpl(getResources()).init();
         initRecyclerView();
     }
 
@@ -129,10 +110,7 @@ public class EnotesListFragment extends Fragment {
         adapter.SetOnItemClickListener(new EnotesListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String[] titles = getResources().getStringArray(R.array.notes_titles);
-                String[] descr = getResources().getStringArray(R.array.notes_descriptions);
-
-                edata = new EnoteData(titles[position], descr[position], new Date());
+                edata = data.getEnoteData(position);
                 showContent(edata);
             }
         });
@@ -177,25 +155,7 @@ public class EnotesListFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-//        int position = adapter.getMenuPosition();
-//        switch(item.getItemId()) {
-//            case R.id.action_edit:
-//                navigation.addFragment(EnoteEditorFragment.newInstance(data.getEnoteData(position)), true);
-//                publisher.subscribe(new Observer() {
-//                    @Override
-//                    public void updateEnoteData(EnoteData enoteData) {
-//                        data.editEnote(position, enoteData);
-//                        adapter.notifyItemChanged(position);
-//                    }
-//                });
-//                return true;
-//            case R.id.action_delete:
-//                data.deleteEnote(position);
-//                adapter.notifyItemRemoved(position);
-//                return true;
-//        }
-//
-//        return super.onContextItemSelected(item);
+
         return onItemSelected(item.getItemId()) || super.onContextItemSelected(item);
     }
 
