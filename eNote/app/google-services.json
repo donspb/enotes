@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1068897907051-g22rm8lmuhscrk877e7sr75ggub92gae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.gb.androidone.donspb.enote",
+            "certificate_hash": "bb04fa305d661e71426cd574f4dedb4a44b15a82"
+          }
+        },
+        {
           "client_id": "1068897907051-km8kvlbqas6sqh1kh7l575ntnlf59f78.apps.googleusercontent.com",
           "client_type": 3
         }

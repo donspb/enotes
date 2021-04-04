@@ -22,8 +22,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Under construction</string>
 
-    <string name="about_string_one">eNotes</string>
-    <string name="about_string_two">by donspb</string>
-    <string name="about_string_three">2021</string>
+    <string name="about_title">eNotes</string>
+    <string name="about_author">by donspb</string>
+    <string name="about_year">2021</string>
+    <string name="about_btn">I see</string>
 
 </resources>

@@ -54,21 +54,6 @@ public class OneNoteFragment extends Fragment {
         tv.setText(new SimpleDateFormat("dd-MM-yyyy").format(endata.getDateTime()));
 
 
-//        TextView tv = new TextView(getContext());
-//        tv.setText(endata.getNoteTitle());
-//        tv.setTextSize(30);
-//        view.addView(tv);
-//
-//        tv = new TextView(getContext());
-//        tv.setText(endata.getNoteDescription());
-//        tv.setTextSize(20);
-//        view.addView(tv);
-//
-//        tv = new TextView(getContext());
-//        tv.setText(endata.getDateTime());
-//        tv.setTextSize(10);
-//        view.addView(tv);
-
         return view;
     }
 

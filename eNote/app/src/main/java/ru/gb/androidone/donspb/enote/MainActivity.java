@@ -2,6 +2,7 @@ package ru.gb.androidone.donspb.enote;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -84,14 +86,28 @@ public class MainActivity extends AppCompatActivity {
                 getNavigation().addFragment(SettingsFragment.newInstance(), false);
                 return true;
             case R.id.toolbar_menu_about:
-                LayoutInflater li = getLayoutInflater();
-                View v = li.inflate(R.layout.about_toast, (ViewGroup) findViewById(R.id.toast_layout));
 
-                Toast aboutToast = new Toast(getApplicationContext());
-                aboutToast.setGravity(Gravity.CENTER, 0,0);
-                aboutToast.setDuration(Toast.LENGTH_LONG);
-                aboutToast.setView(v);
-                aboutToast.show();
+//                LayoutInflater li = getLayoutInflater();
+//                View v = li.inflate(R.layout.about_toast, (ViewGroup) findViewById(R.id.toast_layout));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.about_title)
+                        .setMessage(R.string.about_author + "\n" + R.string.about_year)
+                        .setIcon(R.drawable.racoon)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.about_btn, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+//                Toast aboutToast = new Toast(getApplicationContext());
+//                aboutToast.setGravity(Gravity.CENTER, 0,0);
+//                aboutToast.setDuration(Toast.LENGTH_LONG);
+//                aboutToast.setView(v);
+//                aboutToast.show();
                 return true;
         }
         return false;

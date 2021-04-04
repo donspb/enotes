@@ -110,6 +110,9 @@ public class EnotesListFragment extends Fragment {
         adapter.SetOnItemClickListener(new EnotesListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+//                String[] titles = getResources().getStringArray(R.array.notes_titles);
+//                String[] descr = getResources().getStringArray(R.array.notes_descriptions);
+
                 edata = data.getEnoteData(position);
                 showContent(edata);
             }
@@ -155,7 +158,6 @@ public class EnotesListFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-
         return onItemSelected(item.getItemId()) || super.onContextItemSelected(item);
     }
 
